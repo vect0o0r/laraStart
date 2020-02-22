@@ -4,10 +4,34 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
+
 require('./bootstrap');
 
 window.Vue = require('vue');
+import { Form, HasError, AlertError } from 'vform'
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+import VueRouter from 'vue-router'
 
+Vue.use(VueRouter)
+import ProfileComponent from './components/ProfileComponent';
+import DashboardComponent from './components/DashboardComponent';
+import UsersComponent from './components/UsersComponent';
+
+// Vue.component('profile-component', require().default);
+// Vue.component('dashboard-component', require().default);
+let routes = [
+    { path: '/dashboard', component:DashboardComponent },
+    { path: '/profile', component:ProfileComponent },
+    { path: '/users', component:UsersComponent }
+]
+
+const router = new VueRouter({
+    mode:'history',
+    routes // short for `routes: routes`
+})
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,6 +51,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// const app = new Vue({
+//     el: '#app',
+//     router
+// });
 const app = new Vue({
-    el: '#app',
-});
+    router
+}).$mount('#app')
