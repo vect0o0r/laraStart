@@ -70,9 +70,10 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="login"
-                              @keydown="form.onKeydown($event)">
+                    <form @submit.prevent="login"
+                          @keydown="form.onKeydown($event)">
+                        <div class="modal-body">
+
                             <div class="form-group">
                                 <label>Username</label>
                                 <input v-model="form.name"
@@ -125,21 +126,19 @@
                                            field="password"></has-error>
                             </div>
 
-                            <button :disabled="form.busy"
-                                    type="submit"
-                                    class="btn btn-primary">Log In
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal">Close
                             </button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-danger"
-                                data-dismiss="modal">Close
-                        </button>
-                        <button type="button"
-                                class="btn btn-primary">Create
-                        </button>
-                    </div>
+                            <button :disabled="form.busy"
+                                    type="button"
+                                    class="btn btn-primary">Create
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

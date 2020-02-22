@@ -2172,7 +2172,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38764,21 +38763,21 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(2),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.login($event)
-                      },
-                      keydown: function($event) {
-                        return _vm.form.onKeydown($event)
-                      }
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.login($event)
+                    },
+                    keydown: function($event) {
+                      return _vm.form.onKeydown($event)
                     }
-                  },
-                  [
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
                     _c(
                       "div",
                       { staticClass: "form-group" },
@@ -38971,21 +38970,30 @@ var render = function() {
                         })
                       ],
                       1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close\n                        ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.form.busy, type: "submit" }
+                        attrs: { disabled: _vm.form.busy, type: "button" }
                       },
-                      [_vm._v("Log In\n                        ")]
+                      [_vm._v("Create\n                        ")]
                     )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(3)
+                  ])
+                ]
+              )
             ])
           ]
         )
@@ -39104,27 +39112,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close\n                    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Create\n                    ")]
       )
     ])
   }
