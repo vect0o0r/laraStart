@@ -27,15 +27,17 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Type</th>
+                    <th>Registed At</th>
                     <th>Modify</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>#</td>
-                    <td>#</td>
-                    <td>#</td>
-                    <td>#</td>
+                <tr v-for="user in users" :key="user.id">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.type}}</td>
+                    <td>{{user.created_at}}</td>
                     <td class="project-actions ">
                         <a class="btn btn-info btn-sm"
                            href="#">
@@ -70,56 +72,57 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="login"
-                          @keydown="form.onKeydown($event)">
+                    <form @submit.prevent="createUser" @keydown="form.onKeydown($event)">
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Username</label>
+                                <label></label>
                                 <input v-model="form.name"
                                        type="text"
                                        name="name"
                                        class="form-control"
+                                       placeholder="Type Username"
                                        :class="{ 'is-invalid' : form.errors.has('name') }">
                                 <has-error :form="form"
                                            field="name"></has-error>
                             </div>
 
                             <div class="form-group">
-                                <label>Email Address</label>
                                 <input v-model="form.email"
                                        type="text"
                                        name="email"
+                                       placeholder="Type Email Address"
                                        class="form-control"
                                        :class="{ 'is-invalid' : form.errors.has('email') }">
                                 <has-error :form="form"
                                            field="email"></has-error>
                             </div>
                             <div class="form-group">
-                                <label>User type</label>
                                 <select name="type"
                                         id="type"
                                         v-model="form.type"
                                         class="form-control"
                                         :class="{ 'is-invalid' : form.errors.has('type') }">
+                                    <option selected value="">Select User Role</option>
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
+                                    <option value="author">Author</option>
                                 </select>
 
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Bio</label>
                                 <textarea class="form-control"
                                           id="bio"
+                                          placeholder="Type User Bio"
                                           v-model="form.bio"
                                           :class="{ 'is-invalid' : form.errors.has('bio') }"
                                           rows="3"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
                                 <input v-model="form.password"
                                        type="password"
                                        name="password"
+                                       placeholder="Type User Password"
                                        class="form-control"
                                        :class="{ 'is-invalid' : form.errors.has('password') }">
                                 <has-error :form="form"
@@ -129,13 +132,14 @@
 
                         </div>
                         <div class="modal-footer">
+
+                            <button :disabled="form.busy"
+                                    type="type"
+                                    class="btn btn-primary">Create
+                            </button>
                             <button type="button"
                                     class="btn btn-danger"
                                     data-dismiss="modal">Close
-                            </button>
-                            <button :disabled="form.busy"
-                                    type="button"
-                                    class="btn btn-primary">Create
                             </button>
                         </div>
                     </form>
@@ -150,6 +154,7 @@
     export default {
         data() {
             return {
+                users : {},
                 form: new Form({
                     name: '',
                     email: '',
@@ -157,21 +162,23 @@
                     type: '',
                     bio: '',
                     photo: '',
-                    remember: false
                 })
             };
         },
-        mounted() {
-            console.log('Component mounted.');
-        },
         methods: {
-            login() {
+            loadUsers(){
+            axios.get("api/user").then(({ data }) => (this.users = data.data));
+            },
+            createUser() {
                 // Submit the form via a POST request
-                this.form.post('/login')
+                this.form.post('/api/user')
                     .then(({data}) => {
                         console.log(data);
                     });
             }
-        }
+        },
+        created() {
+           this.loadUsers();
+        },
     };
 </script>
