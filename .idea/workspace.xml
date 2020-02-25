@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cf3d647c-6c92-41b8-97d9-9645531cc789" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/UsersComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UsersComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,6 +124,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -160,7 +160,8 @@
       <workItem from="1582384095111" duration="1510000" />
       <workItem from="1582390223255" duration="1792000" />
       <workItem from="1582392030796" duration="636000" />
-      <workItem from="1582395512860" duration="1589000" />
+      <workItem from="1582395512860" duration="1706000" />
+      <workItem from="1582634037331" duration="1363000" />
     </task>
     <servers />
   </component>
@@ -188,6 +189,14 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1399" height="261" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582299133802" />
+    <state x="461" y="182" key="SettingsEditor" timestamp="1582634992453">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="461" y="182" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582634992453" />
+    <state x="636" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1582634038861">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="636" y="363" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/-1920.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582634038861" />
     <state x="695" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582396882299">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
