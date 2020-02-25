@@ -2172,31 +2172,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      users: {},
       form: new Form({
         name: '',
         email: '',
         password: '',
         type: '',
         bio: '',
-        photo: '',
-        remember: false
+        photo: ''
       })
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
   methods: {
-    login: function login() {
-      // Submit the form via a POST request
-      this.form.post('/login').then(function (_ref) {
+    loadUsers: function loadUsers() {
+      var _this = this;
+
+      axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
+        return _this.users = data.data;
+      });
+    },
+    createUser: function createUser() {
+      // Submit the form via a POST request
+      this.form.post('/api/user').then(function (_ref2) {
+        var data = _ref2.data;
         console.log(data);
       });
     }
+  },
+  created: function created() {
+    this.loadUsers();
   }
 });
 
@@ -38738,7 +38750,31 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _vm._m(0),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "card-body p-0" }, [
+      _c("table", { staticClass: "table table-striped projects" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.users, function(user) {
+            return _c("tr", { key: user.id }, [
+              _c("td", [_vm._v(_vm._s(user.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.name))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.email))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.type))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.created_at))]),
+              _vm._v(" "),
+              _vm._m(2, true)
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -38761,7 +38797,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "form",
@@ -38769,7 +38805,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.login($event)
+                      return _vm.createUser($event)
                     },
                     keydown: function($event) {
                       return _vm.form.onKeydown($event)
@@ -38782,7 +38818,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("label", [_vm._v("Username")]),
+                        _c("label"),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -38795,7 +38831,11 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("name") },
-                          attrs: { type: "text", name: "name" },
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "Type Username"
+                          },
                           domProps: { value: _vm.form.name },
                           on: {
                             input: function($event) {
@@ -38818,8 +38858,6 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("label", [_vm._v("Email Address")]),
-                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -38831,7 +38869,11 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("email") },
-                          attrs: { type: "text", name: "email" },
+                          attrs: {
+                            type: "text",
+                            name: "email",
+                            placeholder: "Type Email Address"
+                          },
                           domProps: { value: _vm.form.email },
                           on: {
                             input: function($event) {
@@ -38851,8 +38893,6 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("User type")]),
-                      _vm._v(" "),
                       _c(
                         "select",
                         {
@@ -38888,24 +38928,26 @@ var render = function() {
                           }
                         },
                         [
+                          _c("option", { attrs: { selected: "", value: "" } }, [
+                            _vm._v("Select User Role")
+                          ]),
+                          _vm._v(" "),
                           _c("option", { attrs: { value: "admin" } }, [
                             _vm._v("Admin")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "user" } }, [
                             _vm._v("User")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "author" } }, [
+                            _vm._v("Author")
                           ])
                         ]
                       )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "label",
-                        { attrs: { for: "exampleFormControlTextarea1" } },
-                        [_vm._v("Bio")]
-                      ),
-                      _vm._v(" "),
                       _c("textarea", {
                         directives: [
                           {
@@ -38917,7 +38959,11 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         class: { "is-invalid": _vm.form.errors.has("bio") },
-                        attrs: { id: "bio", rows: "3" },
+                        attrs: {
+                          id: "bio",
+                          placeholder: "Type User Bio",
+                          rows: "3"
+                        },
                         domProps: { value: _vm.form.bio },
                         on: {
                           input: function($event) {
@@ -38934,8 +38980,6 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("label", [_vm._v("Password")]),
-                        _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
@@ -38949,7 +38993,11 @@ var render = function() {
                           class: {
                             "is-invalid": _vm.form.errors.has("password")
                           },
-                          attrs: { type: "password", name: "password" },
+                          attrs: {
+                            type: "password",
+                            name: "password",
+                            placeholder: "Type User Password"
+                          },
                           domProps: { value: _vm.form.password },
                           on: {
                             input: function($event) {
@@ -38977,19 +39025,19 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button", "data-dismiss": "modal" }
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: _vm.form.busy, type: "type" }
                       },
-                      [_vm._v("Close\n                        ")]
+                      [_vm._v("Create\n                        ")]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.form.busy, type: "button" }
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
                       },
-                      [_vm._v("Create\n                        ")]
+                      [_vm._v("Close\n                        ")]
                     )
                   ])
                 ]
@@ -39046,47 +39094,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-0" }, [
-      _c("table", { staticClass: "table table-striped projects" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("ID")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Email")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Type")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Modify")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("td", { staticClass: "project-actions " }, [
-              _c(
-                "a",
-                { staticClass: "btn btn-info btn-sm", attrs: { href: "#" } },
-                [_c("i", { staticClass: "fas fa-pencil-alt  " })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "btn btn-danger btn-sm", attrs: { href: "#" } },
-                [_c("i", { staticClass: "fas fa-trash " })]
-              )
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Registed At")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "project-actions " }, [
+      _c("a", { staticClass: "btn btn-info btn-sm", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-pencil-alt  " })
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-danger btn-sm", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-trash " })
       ])
     ])
   },
