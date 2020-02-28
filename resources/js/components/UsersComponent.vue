@@ -122,6 +122,8 @@
                                           v-model="form.bio"
                                           :class="{ 'is-invalid' : form.errors.has('bio') }"
                                           rows="3"></textarea>
+                                <has-error :form="bio"
+                                           field="bio"></has-error>
                             </div>
                             <div class="form-group">
                                 <input v-model="form.password"

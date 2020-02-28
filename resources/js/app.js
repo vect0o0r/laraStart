@@ -5,16 +5,17 @@
  */
 
 
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 import moment from "moment";
 import VueProgressBar from 'vue-progressbar'
 import Swal from 'sweetalert2'
+
 window.Swal = Swal;
 
-import { Form, HasError, AlertError } from 'vform'
+import {Form, HasError, AlertError} from 'vform'
+
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -44,20 +45,20 @@ import DeveloperComponent from './components/DeveloperComponent';
 // Vue.component('profile-component', require().default);
 // Vue.component('dashboard-component', require().default);
 let routes = [
-    { path: '/dashboard', component:DashboardComponent },
-    { path: '/profile', component:ProfileComponent },
-    { path: '/users', component:UsersComponent },
-    { path: '/developer', component:DeveloperComponent }
+    {path: '/dashboard', component: DashboardComponent},
+    {path: '/profile', component: ProfileComponent},
+    {path: '/users', component: UsersComponent},
+    {path: '/developer', component: DeveloperComponent}
 ];
 
 const router = new VueRouter({
-    mode:'history',
+    mode: 'history',
     routes // short for `routes: routes`
 });
-Vue.filter('upperText',function (text) {
+Vue.filter('upperText', function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
-Vue.filter('onlyDate',function (text) {
+Vue.filter('onlyDate', function (text) {
     return moment(text).format('MMMM Do YYYY, ')
 });
 
