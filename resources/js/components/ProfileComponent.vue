@@ -311,14 +311,14 @@
                                                 <textarea class="form-control" id="inputExperience"
                                                           placeholder="Experience"  v-model="form.bio"
                                                           :class="{ 'is-invalid' : form.errors.has('bio') }"></textarea>
-                                                <has-error :form="bio"
+                                                <has-error :form="form"
                                                            field="bio"></has-error>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="photo" class="col-sm-2 col-form-label">Profile Photo</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control"     :class="{ 'is-invalid' : form.errors.has('photo') }" name="photo" id="photo">
+                                                <input type="file" class="form-control" @change="updateProfilePhoto"    :class="{ 'is-invalid' : form.errors.has('photo') }" name="photo" id="photo">
                                                 <has-error :form="form"
                                                            field="password"></has-error>
                                             </div>
@@ -332,7 +332,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button :disabled="form.busy"
+                                                <button @click.prevent="updateProfileInfo"
                                                         type="submit"
                                                         class="btn btn-success">Update
                                                 </button>
@@ -374,7 +374,33 @@
                     this.$Progress.fail();
                 });
         },
-        mounted() {
+        methods:{
+            updateProfilePhoto(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                if (file['size'] < 2111775){
+                    reader.onloadend = (file) => {
+                        this.form.photo = reader.result
+                    };
+                    reader.readAsDataURL(file);
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are Uploading a large file',
+                    });
+                }
+
+            },updateProfileInfo(){
+                this.$Progress.start();
+                this.form.put('api/profile/')
+                    .then(()=>{
+                        this.$Progress.finish();
+                }).catch(()=>{
+                    this.$Progress.fail();
+                });
+            }
 
         }
     }

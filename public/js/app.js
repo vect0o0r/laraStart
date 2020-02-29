@@ -2398,7 +2398,39 @@ __webpack_require__.r(__webpack_exports__);
       _this.$Progress.fail();
     });
   },
-  mounted: function mounted() {}
+  methods: {
+    updateProfilePhoto: function updateProfilePhoto(e) {
+      var _this2 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      if (file['size'] < 2111775) {
+        reader.onloadend = function (file) {
+          _this2.form.photo = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are Uploading a large file'
+        });
+      }
+    },
+    updateProfileInfo: function updateProfileInfo() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      this.form.put('api/profile/').then(function () {
+        _this3.$Progress.finish();
+      })["catch"](function () {
+        _this3.$Progress.fail();
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -61571,7 +61603,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.bio, field: "bio" }
+                          attrs: { form: _vm.form, field: "bio" }
                         })
                       ],
                       1
@@ -61595,7 +61627,8 @@ var render = function() {
                         _c("input", {
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("photo") },
-                          attrs: { type: "file", name: "photo", id: "photo" }
+                          attrs: { type: "file", name: "photo", id: "photo" },
+                          on: { change: _vm.updateProfilePhoto }
                         }),
                         _vm._v(" "),
                         _c("has-error", {
@@ -61614,7 +61647,13 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-success",
-                          attrs: { disabled: _vm.form.busy, type: "submit" }
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.updateProfileInfo($event)
+                            }
+                          }
                         },
                         [
                           _vm._v(
