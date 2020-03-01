@@ -17,8 +17,8 @@ window.Swal = Swal;
 import {Form, HasError, AlertError} from 'vform'
 
 window.Form = Form;
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
@@ -36,11 +36,17 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component(
+    'NotFound',
+    require('./components/NotFoundComponent.vue').default
+);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 import ProfileComponent from './components/ProfileComponent';
 import DashboardComponent from './components/DashboardComponent';
 import UsersComponent from './components/UsersComponent';
 import DeveloperComponent from './components/DeveloperComponent';
+
 
 // Vue.component('profile-component', require().default);
 // Vue.component('dashboard-component', require().default);
@@ -73,7 +79,7 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-})
+});
 window.Toast = Toast;
 const options = {
     color: '#bffaf3',

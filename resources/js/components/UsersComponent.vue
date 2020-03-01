@@ -33,7 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in users.data" :key="user.id">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
@@ -156,9 +156,12 @@
                             </button>
                         </div>
                     </form>
+
+
                 </div>
             </div>
         </div>
+        <pagination :data="users" @pagination-change-page="getResults"></pagination>
     </div>
 
 </template>
@@ -181,8 +184,14 @@
             };
         },
         methods: {
+            getResults(page = 1) {
+                axios.get('api/user?page=' + page)
+                    .then(response => {
+                        this.users = response.data;
+                    });
+            },
             loadUsers() {
-                axios.get("api/user").then(({data}) => (this.users = data.data));
+                axios.get("api/user").then(({data}) => (this.users = data));
             },
             createUser() {
                 // Submit the form via a POST request
