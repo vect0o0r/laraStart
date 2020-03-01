@@ -75,6 +75,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'type' => 'required|string',
+            'bio' => 'sometimes|nullable|string',
 //            'photo' => 'required|image',
             'password' => 'required|string|min:6',
         ]);
@@ -89,9 +90,18 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function search(Request $request)
     {
-        //
+       $search = $request->q;
+           $users = User::where(function ($q) use ($search){
+               $q->where('name','LIKE',"%$search%")
+                   ->orWhere('name','LIKE',"%$search%")
+                   ->orWhere('email','LIKE',"%$search%")
+                   ->orWhere('type','LIKE',"%$search%")
+                   ->orWhere('bio','LIKE',"%$search%");
+               })->paginate(10);
+           return $users;
+
     }
 
     /**

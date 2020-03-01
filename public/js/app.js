@@ -1940,7 +1940,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2020,6 +2019,29 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2754,6 +2776,15 @@ __webpack_require__.r(__webpack_exports__);
     this.loadUsers();
     Fire.$on('AfterCreated', function () {
       _this6.loadUsers();
+    });
+    Fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findUser?q=' + query).then(function (data) {
+        _this6.users = data.data;
+        _this6.$Progress.finish;
+      })["catch"](function () {
+        _this6.$Progress.fail();
+      });
     }); // setInterval(() =>  this.loadUsers(), 5000)
   }
 });
@@ -61951,32 +61982,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "div",
-          { staticClass: "card" },
-          [
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("Dasboard Component")
             ]),
-            _vm._v(" "),
-            _c("NotFound"),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _vm._v(
                 "\n                    I'm an example component.\n                "
               )
             ])
-          ],
-          1
-        )
+          ])
+        ])
       ])
     ])
-  ])
-}
-var staticRenderFns = []
+  }
+]
 render._withStripped = true
 
 
@@ -62091,10 +62122,47 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("h1", [_vm._v("Not Found")])
+    return _c("section", { staticClass: "content" }, [
+      _c("div", { staticClass: "error-page" }, [
+        _c("h2", { staticClass: "headline text-warning" }, [_vm._v(" 404")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "error-content" }, [
+          _c("h3", [
+            _c("i", {
+              staticClass: "fas fa-exclamation-triangle text-warning"
+            }),
+            _vm._v(" Oops! Page not found.")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n                We could not find the page you were looking for.\n                Meanwhile, you may "
+            ),
+            _c("a", { attrs: { href: "../../index.html" } }, [
+              _vm._v("return to dashboard")
+            ]),
+            _vm._v(" or try using the search form.\n            ")
+          ]),
+          _vm._v(" "),
+          _c("form", { staticClass: "search-form" }, [
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { type: "text", name: "search", placeholder: "Search" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-warning",
+                    attrs: { type: "submit", name: "submit" }
+                  },
+                  [_c("i", { staticClass: "fas fa-search" })]
+                )
+              ])
+            ])
+          ])
         ])
       ])
     ])
@@ -63205,7 +63273,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.bio, field: "bio" }
+                            attrs: { form: _vm.form, field: "bio" }
                           })
                         ],
                         1
@@ -79629,6 +79697,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_DashboardComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/DashboardComponent */ "./resources/js/components/DashboardComponent.vue");
 /* harmony import */ var _components_UsersComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/UsersComponent */ "./resources/js/components/UsersComponent.vue");
 /* harmony import */ var _components_DeveloperComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/DeveloperComponent */ "./resources/js/components/DeveloperComponent.vue");
+/* harmony import */ var _components_NotFoundComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/NotFoundComponent */ "./resources/js/components/NotFoundComponent.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -79650,8 +79719,8 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
 Vue.component('passport-clients', __webpack_require__(/*! ./components/passport/Clients.vue */ "./resources/js/components/passport/Clients.vue")["default"]);
 Vue.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/js/components/passport/AuthorizedClients.vue")["default"]);
 Vue.component('passport-personal-access-tokens', __webpack_require__(/*! ./components/passport/PersonalAccessTokens.vue */ "./resources/js/components/passport/PersonalAccessTokens.vue")["default"]);
-Vue.component('NotFound', __webpack_require__(/*! ./components/NotFoundComponent.vue */ "./resources/js/components/NotFoundComponent.vue")["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
+
 
 
 
@@ -79670,6 +79739,9 @@ var routes = [{
 }, {
   path: '/developer',
   component: _components_DeveloperComponent__WEBPACK_IMPORTED_MODULE_8__["default"]
+}, {
+  path: '/*',
+  component: _components_NotFoundComponent__WEBPACK_IMPORTED_MODULE_9__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   mode: 'history',
@@ -79731,7 +79803,15 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 // });
 
 var app = new Vue({
-  router: router
+  router: router,
+  data: {
+    search: ''
+  },
+  methods: {
+    searchit: function searchit() {
+      Fire.$emit('searching');
+    }
+  }
 }).$mount('#app');
 
 /***/ }),

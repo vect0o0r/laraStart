@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 Route::apiResources([
     'user'=>'API\UserController'
 ]);
+Route::get('findUser','API\UserController@search');
 Route::post('profile','API\UserController@profile');
 Route::put('profile','API\UserController@updateProfile');
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

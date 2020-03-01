@@ -36,16 +36,14 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
-Vue.component(
-    'NotFound',
-    require('./components/NotFoundComponent.vue').default
-);
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 import ProfileComponent from './components/ProfileComponent';
 import DashboardComponent from './components/DashboardComponent';
 import UsersComponent from './components/UsersComponent';
 import DeveloperComponent from './components/DeveloperComponent';
+import NotFound from './components/NotFoundComponent';
 
 
 // Vue.component('profile-component', require().default);
@@ -54,7 +52,8 @@ let routes = [
     {path: '/dashboard', component: DashboardComponent},
     {path: '/profile', component: ProfileComponent},
     {path: '/users', component: UsersComponent},
-    {path: '/developer', component: DeveloperComponent}
+    {path: '/developer', component: DeveloperComponent},
+    {path: '/*', component: NotFound}
 ];
 
 const router = new VueRouter({
@@ -122,4 +121,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 // });
 const app = new Vue({
     router,
+    data:{
+        search:'',
+    },
+    methods:{
+        searchit(){
+            Fire.$emit('searching');
+        }
+    }
 }).$mount('#app');

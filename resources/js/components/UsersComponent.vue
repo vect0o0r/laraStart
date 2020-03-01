@@ -122,7 +122,7 @@
                                           v-model="form.bio"
                                           :class="{ 'is-invalid' : form.errors.has('bio') }"
                                           rows="3"></textarea>
-                                <has-error :form="bio"
+                                <has-error :form="form"
                                            field="bio"></has-error>
                             </div>
                             <div class="form-group">
@@ -224,7 +224,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$Progress.start();
-                        this.form.delete('/api/user/'+id)
+                        this.form.delete('/api/user/' + id)
                             .then(() => {
                                 Fire.$emit('AfterCreated');
                                 Swal.fire(
@@ -244,17 +244,17 @@
 
 
             },
-            createModel(){
+            createModel() {
                 this.editMode = false;
                 this.form.reset();
             },
-            editUser(user){
+            editUser(user) {
                 this.editMode = true;
                 this.form.reset();
                 this.form.fill(user)
-            },updateUser(){
+            }, updateUser() {
                 this.$Progress.start();
-                this.form.put('/api/user/'+this.form.id)
+                this.form.put('/api/user/' + this.form.id)
                     .then(() => {
 
                         Toast.fire({
@@ -274,6 +274,17 @@
             this.loadUsers();
             Fire.$on('AfterCreated', () => {
                 this.loadUsers();
+            });
+            Fire.$on('searching', () => {
+                let query = this.$parent.search;
+                axios.get('api/findUser?q=' + query)
+                    .then((data) => {
+                        this.users = data.data;
+                        this.$Progress.finish;
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    })
             });
             // setInterval(() =>  this.loadUsers(), 5000)
         },

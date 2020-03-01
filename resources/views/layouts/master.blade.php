@@ -31,16 +31,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
         </ul>
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+
+        <div class="form-inline ml-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-navbar" @keyup.enter="searchit" type="search" v-model="search"
+                       placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
+                    <button class="btn btn-navbar" @change.prevent="searchit" type="button">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
-        </form>
+        </div>
 
     </nav>
     <!-- /.navbar -->
@@ -89,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt text-green"></i>
                             <p>
-                               Management
+                                Management
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -98,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <router-link to="users" class="nav-link ">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Users</p>
-                                </a>
+                                    </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
